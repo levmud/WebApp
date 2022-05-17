@@ -1,0 +1,43 @@
+﻿@using Blazor.Data.Models
+@using Blazor.Data.Services
+@inject NavigationManager _navigationManager
+
+<h1>Список авторов</h1>
+<table class="table">
+	<thead>
+	<tr>
+		<th>ID</th>
+		<th>ФИО</th>
+		<th>Страна</th>
+		<th>Направление</th>
+	</tr>
+	</thead>
+	<tbody>
+	 @if (authors != null)
+	 {
+		 @foreach (var author in authors)
+		 {
+			 <tr @onclick="()=>toItem(author)">
+				 <td>@author.Id</td>
+				 <td>@author.Fullname</td>
+				 <td>@author.Country</td>
+				 <td>@author.Direction</td>
+			 </tr>
+		}
+	}
+	</tbody>
+</table>
+
+@code{
+	private List<Author>? authors;
+	[Inject]
+	private IAuthorProvider authorsProvider { get; set; }
+	protected override async Task OnInitializedAsync()
+	{
+		authors = await authorsProvider.GetAll();
+	}
+	public void toItem(Author author)
+	{
+		_navigationManager.NavigateTo($"/Author/{author.Id}");
+	}
+}

@@ -11,7 +11,7 @@ namespace WebApp.Data.Services
         {
             _context = context;
         }
-        public async Task<BookDTO?> AddBook(BookDTO bookDTO)
+        public async Task<Book?> AddBook(BookDTO bookDTO)
         {
             var author = await _context.Authors.FirstOrDefaultAsync(au => au.Id == bookDTO.Author);
             if (author == null)
@@ -34,8 +34,8 @@ namespace WebApp.Data.Services
             var result = _context.Books.Add(nbook);
             await _context.SaveChangesAsync();
 
-            bookDTO.Id = result.Entity.Id;
-            return await Task.FromResult(bookDTO);
+            // bookDTO.Id = result.Entity.Id;
+            return await Task.FromResult(result.Entity);
         }
 
 
