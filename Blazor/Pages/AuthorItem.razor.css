@@ -1,0 +1,78 @@
+﻿.field {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+
+.authorBlock {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    width: 200px;
+}
+
+.valueField {
+    width: 400px;
+}
+
+.artAuthors {
+    display: flex;
+    flex-direction: column;
+}
+
+.authorTag {
+    padding: 5px;
+    margin-top: 5px;
+    border: 1px solid #8b008bff;
+    border-radius: 8px;
+    background-color: #ff00ff44;
+}
+h3 {
+    text-align: center;
+}
+.break {
+    flex-basis: 100%;
+    height: 40px;
+}
+
+.break-min {
+    flex-basis: 100%;
+    height: 10px;
+}
+.del_author {
+    cursor: default;
+    border-radius: 10px;
+    background-color: maroon;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    line-height: 200%;
+    width: 100%;
+    transition: .3s;
+}
+
+    .del_author:hover {
+        box-shadow: 0 0 10px 5px rgba(0,0,0,0.2);
+        transition: .3s;
+    }
+
+.edit_author {
+    cursor: default;
+    border-radius: 10px;
+    background-color: darkorchid;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    line-height: 200%;
+    width: 100%;
+    transition: .3s;
+}
+
+    .edit_author:hover {
+        box-shadow: 0 0 10px 5px rgba(0,0,0,0.2);
+        transition: .3s;
+    }

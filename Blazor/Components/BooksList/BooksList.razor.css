@@ -1,36 +1,5 @@
-body {
-    margin: 0;
-    font-family: Tahoma, sans-serif;
-    font-size: 16px;
-    color: #111;
-    background-color: #f8f8f8;  
-    padding: 50px 0px 0px 0px;
-}
-
-.main {
-    background-color: #f8f8f8;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-
-.header {
-    box-shadow: 0px 0px 5px 5px #6D6552;
-}
-
-.content {
-    max-width: 800px;
-    margin: 0 auto;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    display: flex;
-}
-
-
+﻿
 h1 {
-
     text-align: center;
 }
 
@@ -41,12 +10,7 @@ h2 {
 .nav-link {
 }
 
-.book {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    font-family: Tahoma, sans-serif;
-}
+
 
 .break {
     flex-basis: 100%;
@@ -58,7 +22,7 @@ h2 {
     height: 10px;
 }
 
-.book p.book-price {
+.book-item p.book-price {
     color: goldenrod;
 }
 
@@ -67,6 +31,7 @@ h2 {
 }
 
 .book-item {
+    margin: 20px;
     font-family: Tahoma, sans-serif;
     border: 5px;
     border-color: black;

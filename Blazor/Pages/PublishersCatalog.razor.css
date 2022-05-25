@@ -1,0 +1,21 @@
+﻿a {
+	text-decoration: none;
+}
+
+.add_author {
+	cursor: default;
+	border-radius: 10px;
+	background-color: darkgray;
+	color: white;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	text-align: center;
+	line-height: 200%;
+	width: 100%;
+	transition: .3s;
+}
+
+	.add_author:hover {
+		box-shadow: 0 0 10px 5px rgba(0,0,0,0.2);
+		transition: .3s;
+	}

@@ -1,0 +1,52 @@
+﻿@page "/Publisher/create"
+@using Blazor.Data.Models
+@using Blazor.Data.Services
+@using Blazor.Data.DTOs
+@inject NavigationManager _navigationManager
+
+<div class="container-fluid">
+    <div class="break-min"></div>
+    <h3> Создание издательства </h3>
+    <div class="break-min"></div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-4 "> </div>
+    <div class="box col-md-4 ">
+
+        <label class="input-label" for="label">Название</label>
+        <div class="input-wrapper">
+            <input class="input-title" id="label"  @bind="name">
+        </div>
+        <label class="input-label" for="label">Телефон</label>
+        <div class="input-wrapper">
+            <input class="input-title" id="label"  @bind="phone">
+        </div>
+        <label class="input-label" for="label">Почта</label>
+        <div class="input-wrapper">
+            <input class="input-title" id="label"  @bind="mail">
+        </div>
+        <div class="add_author" @onclick="createPublisher">Создать</div>
+    </div>
+    <div class="col-md-4 "> </div>
+</div>
+@code {
+    [Inject]
+    IPublisherProvider publisherProvider { get; set; }
+
+    
+    private string name;
+    private string phone;
+    private string mail;
+
+    private async void createPublisher()
+    {
+        PublisherDTO newPublisher = new PublisherDTO();
+        newPublisher.Name = name;
+        newPublisher.Phone = phone;
+        newPublisher.Mail= mail;
+
+        await publisherProvider.Add(newPublisher);
+        _navigationManager.NavigateTo("/Publishers");
+    }
+}

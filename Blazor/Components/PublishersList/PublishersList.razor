@@ -1,0 +1,45 @@
+﻿@using Blazor.Data.Models
+@using Blazor.Data.Services
+@inject NavigationManager _navigationManager
+
+
+<div class="container-fluid">
+    <div class="break-min"></div>
+    <h1> Издательства</h1>
+    <div class="break-min"></div>
+</div>
+<table class="table">
+	<thead>
+	<tr>
+		<th>ID</th>
+		<th>Название</th>
+
+	</tr>
+	</thead>
+	<tbody>
+	 @if (publishers!= null)
+	 {
+		 @foreach (var pub in publishers)
+		 {
+			 <tr @onclick="()=>toItem(pub)">
+				 <td>@pub.Id</td>
+				 <td>@pub.Name</td>
+			 </tr>
+		}
+	}
+	</tbody>
+</table>
+
+@code{
+	private List<Publisher>? publishers;
+	[Inject]
+	private IPublisherProvider publishersProvider { get; set; }
+	protected override async Task OnInitializedAsync()
+	{
+		publishers = await publishersProvider.GetAll();
+	}
+	public void toItem(Publisher publisher)
+	{
+		_navigationManager.NavigateTo($"/Publisher/{publisher.Id}");
+	}
+}

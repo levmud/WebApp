@@ -1,0 +1,95 @@
+﻿@page "/Publisher/{PublisherId}"
+@using Blazor.Data.Services
+@using Blazor.Data.Models
+@inject NavigationManager _navigationManager
+
+<div class="container-fluid">
+    <div class="break-min"></div>
+    <h3> Информация об издательстве </h3>
+    <div class="break-min"></div>
+</div>
+@if (CurrentPublisher != null)
+{
+	<div class="publisherBlock">
+@*		<div class="field">
+			<label class="label">Идентификатор</label> <input class="form-control valueField"
+	type="text" value="@CurrentPublisher.Id" aria-label="Disabled input example" disabled readonly>
+		</div>*@
+		<div class="field">
+	<label class="label">Название</label> <input class="form-control valueField" type="text"
+	value="@CurrentPublisher.Name" aria-label="Disabled input example" disabled readonly>
+		</div>
+		<div class="field">
+			<label class="label">Телефон</label> <input class="form-control valueField" type="text"
+	value="@CurrentPublisher.Phone" aria-label="Disabled input example" disabled readonly>
+		</div>
+		<div class="field">
+			<label class="label">Электронная почта</label> <input class="form-control valueField" type="text"
+	value="@CurrentPublisher.Mail" aria-label="Disabled input example" disabled readonly>
+		</div>
+	</div>
+	
+	<h3>Книги</h3>
+	<table class="table">
+		<thead>
+		<th >Название</th>
+		<th >Жанр</th>
+		</thead>
+		<tbody>
+		@foreach (var b in CurrentPublisher.Books)
+		{
+			<tr @onclick="()=>toItem(b)">
+				<td>@b.Title</td>
+				<td>@b.Genre</td>
+			</tr>
+		}
+		</tbody>
+	</table>
+
+	<div class="row">
+		<div class="col-md-6 "> </div>
+
+		<div class="col-md-2">
+			<div class="edit_author" @onclick="() => editPublisher(Int32.Parse(PublisherId))" >Изменить издательство</div>
+		</div>
+		<div class="col-md-1 "> </div>
+		<div class="col-md-2">
+			<div class="del_author" @onclick="() => deletePublisher(Int32.Parse(PublisherId))" >Удалить издательство</div>
+		</div>
+		<div class="col-md-1 "> </div>
+	</div>
+
+}
+@code {
+	[Parameter]
+	public string PublisherId { get; set; }
+	public List<Data.Models.Publisher> Publishers { get; set; }
+	public Data.Models.Publisher? CurrentPublisher { get; set; }
+	[Inject]
+	private IPublisherProvider publishersProvider { get; set; }
+	protected async override Task OnInitializedAsync()
+	{
+		CurrentPublisher = await publishersProvider.GetOne(Int32.Parse(PublisherId));
+		Publishers = await publishersProvider.GetAll();
+		Console.WriteLine(CurrentPublisher);
+		base.OnInitialized();
+	}
+	
+	public void toItem(Book book)
+	{
+		_navigationManager.NavigateTo($"/Book/{book.Id}");
+	}
+
+	private async void editPublisher(int id)
+    {
+        var post = await publishersProvider.GetOne(id);
+        _navigationManager.NavigateTo($"/Publisher/{id}/edit");
+    }
+
+	private async void deletePublisher(int id)
+    {
+        await publishersProvider.Remove(id);
+        _navigationManager.NavigateTo("/Publishers");
+    }
+
+}

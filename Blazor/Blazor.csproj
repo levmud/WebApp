@@ -7,6 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Pages\EditAuthor.razor.css" />
+    <None Remove="Pages\PublisherItem.razor.css" />
+    <None Remove="Pages\PublishersCatalog.razor.css" />
+    <None Remove="Shared\Footer.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Pages\EditAuthor.razor.css" />
+    <Content Include="Pages\PublisherItem.razor.css" />
+    <Content Include="Pages\PublishersCatalog.razor.css" />
+    <Content Include="Shared\Footer.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.4" PrivateAssets="all" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />

@@ -4,45 +4,44 @@ using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 using Blazor.Data.Models;
 using Blazor.Data.Services;
-using Blazor.Data.DTOs;
-
 
 namespace Blazor.Data.Services
 {
-    public class AuthorsProvider : IAuthorProvider
+    public class BooksProvider : IBookProvider
     {
         private HttpClient _client;
-        public AuthorsProvider(HttpClient client)
+        public BooksProvider(HttpClient client)
         {
             _client = client;
         }
 
-        public async Task<List<Author>> GetAll()
+        public async Task<List<Book>> GetAll()
         {
-            return await _client.GetFromJsonAsync<List<Author>>("/api/author");
+            return await _client.GetFromJsonAsync<List<Book>>("/api/book");
         }
-        public async Task<Author> GetOne(int id)
+        public async Task<Book> GetOne(int id)
         {
-            return await _client.GetFromJsonAsync<Author>($"/api/author/{id}");
+            return await _client.GetFromJsonAsync<Book>($"/api/book/{id}");
         }
-        public async Task<bool> Add(AuthorDTO item)
+        public async Task<bool> Add(Book item)
         {
             string data = JsonConvert.SerializeObject(item);
             StringContent httpContent = new StringContent(data, System.Text.Encoding.UTF8, "application/json");
             var responce = await _client.PostAsync($"/api/author", httpContent);
             return await Task.FromResult(responce.IsSuccessStatusCode);
         }
-        public async Task<Author> Edit(int id, AuthorDTO item)
+        public async Task<Book> Edit(Book item)
         {
             string data = JsonConvert.SerializeObject(item);
             StringContent httpContent = new StringContent(data, System.Text.Encoding.UTF8, "application/json");
-            var responce = await _client.PutAsync($"/api/author/{id}", httpContent);
-            Author author = JsonConvert.DeserializeObject<Author>(responce.Content.ReadAsStringAsync().Result);
-            return await Task.FromResult(author);
+            var responce = await _client.PutAsync($"/api/book", httpContent);
+            Book book =
+            JsonConvert.DeserializeObject<Book>(responce.Content.ReadAsStringAsync().Result);
+            return await Task.FromResult(book);
         }
         public async Task<bool> Remove(int id)
         {
-            var delete = await _client.DeleteAsync($"/api/author/{id}");
+            var delete = await _client.DeleteAsync($"/api/book/{id}");
             return await Task.FromResult(delete.IsSuccessStatusCode);
         }
     }

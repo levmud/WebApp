@@ -1,0 +1,52 @@
+﻿@page "/Book/{BookId}"
+@using Blazor.Data.Services
+
+@if (CurrentBook!= null)
+{
+
+<div class="container-fluid">
+    <div class="break-min"></div>
+    <h1> @CurrentBook.Title | @CurrentBook.Author.Fullname </h1>
+    <div class="break-min"></div>
+</div>
+
+<div class="book-main">
+
+    <div class="desc-book">
+        <a target="_blanc" title="Картинка откроется в новом окне" 
+		href='https://kartinkin.net/uploads/posts/2022-02/1645478584_3-kartinkin-net-p-kartinki-s-knigami-3.png'> 
+			<img src="https://kartinkin.net/uploads/posts/2022-02/1645478584_3-kartinkin-net-p-kartinki-s-knigami-3.png"> </a>
+    </div>
+              
+                                         
+    <div class="desc">
+        <div class="desc-title">
+            О книге
+        </div>
+        <div class="desc-text">
+			<p></p>
+            <p> <b>Описание:</b> @CurrentBook.Description</p>
+			<p> <b>Жанр:</b> @CurrentBook.Genre</p>
+			<p><b>Издательство:</b> @CurrentBook.Publisher.Name</p>
+			<p> <b>Цена:</b> @CurrentBook.Cost ₽</p>
+        </div>
+    </div>
+                       
+</div>
+
+}
+@code {
+	[Parameter]
+	public string BookId { get; set; }
+	public List<Data.Models.Book> Books { get; set; }
+	public Data.Models.Book? CurrentBook { get; set; }
+	[Inject]
+	private IBookProvider booksProvider { get; set; }
+	protected async override Task OnInitializedAsync()
+	{
+		CurrentBook = await booksProvider.GetOne(Int32.Parse(BookId));
+		Books = await booksProvider.GetAll();
+		Console.WriteLine(CurrentBook);
+		base.OnInitialized();
+	}
+}

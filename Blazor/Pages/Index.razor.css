@@ -3,11 +3,10 @@ body {
     font-family: Tahoma, sans-serif;
     font-size: 16px;
     color: #111;
-    background-color: #f8f8f8;  
-    padding: 50px 0px 0px 0px;
+    padding: 50px 0px 0px;
 }
 
-.main {
+.pages {
     background-color: #f8f8f8;
     overflow: hidden;
     display: flex;
@@ -23,14 +22,24 @@ body {
 .content {
     max-width: 800px;
     margin: 0 auto;
+
     flex-wrap: wrap;
     justify-content: space-around;
     display: flex;
 }
 
+.footer {
+
+    padding: 10px 10px 0px 0px;
+    background: rgba(170, 170, 170, 0.5);
+    margin-top: auto;
+}
+
+.footer p {
+    text-align: right;
+}
 
 h1 {
-
     text-align: center;
 }
 
@@ -38,8 +47,7 @@ h2 {
     text-align: center;
 }
 
-.nav-link {
-}
+.nav-link {}
 
 .book {
     display: flex;
@@ -78,23 +86,24 @@ h2 {
     box-shadow: 5px 5px 5px 5px #6D6552;
 }
 
-    .book-item img {
-        height: 420px;
-        width: 300px;
-    }
-
-    .book-item:hover {
-        transform: scale(1.05);
-    }
-
-.product {
+.book-item img {
+    height: 420px;
+    width: 300px;
 }
+
+.book-item:hover {
+    transform: scale(1.05);
+}
+
+.product {}
 
 
 .book-main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+
+
 }
 
 .desc {
@@ -123,16 +132,17 @@ h2 {
     font-family: Tahoma, sans-serif;
 }
 
-    .desc-text p {
-        text-indent: 15px;
-        text-align: justify;
-        color: #484343;
-        font-size: 16px;
-        line-height;
-    }
+.desc-text p {
+    text-indent: 15px;
+    text-align: justify;
+    color: #484343;
+    font-size: 16px;
+    line-height;
+}
 
 
 .desc-book img {
+
     border-color: black;
     border-radius: 6px;
     border-style: ridge;
@@ -142,6 +152,7 @@ h2 {
 }
 
 .chrct {
+
     border-color: black;
     border-radius: 6px;
     border-style: ridge;
@@ -157,19 +168,19 @@ h2 {
     list-style-image: url("../images/icon.png");
 }
 
-    .chrct-text li {
-        padding: 5px 0px;
-    }
+.chrct-text li {
+    padding: 5px 0px;
+}
 
 .carousel {
     height: 620px !important;
     width: 400px !important;
 }
 
-    .carousel img {
-        height: 620px !important;
-        width: 400px !important;
-    }
+.carousel img {
+    height: 620px !important;
+    width: 400px !important;
+}
 
 h3 {
     text-align: center;
@@ -194,7 +205,8 @@ h3 {
     background-color: bisque;
 }
 
-.col-md-4 page {
+.col-md-4 page{
     border: 2px;
     border-color: black;
+    
 }

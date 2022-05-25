@@ -1,15 +1,21 @@
 ﻿@page "/Author/{AuthorId}"
 @using Blazor.Data.Services
+@using Blazor.Data.Models
+@inject NavigationManager _navigationManager
 
+<div class="container-fluid">
+    <div class="break-min"></div>
+    <h3> Информация об авторе </h3>
+    <div class="break-min"></div>
+</div>
 
-<h3>Информация об авторе</h3>
 @if (CurrentAuthor != null)
 {
 	<div class="authorBlock">
-		<div class="field">
+@*		<div class="field">
 			<label class="label">Идентификатор</label> <input class="form-control valueField"
 	type="text" value="@CurrentAuthor.Id" aria-label="Disabled input example" disabled readonly>
-		</div>
+		</div>*@
 		<div class="field">
 	<label class="label">ФИО</label> <input class="form-control valueField" type="text"
 	value="@CurrentAuthor.Fullname" aria-label="Disabled input example" disabled readonly>
@@ -29,27 +35,36 @@
 		<thead>
 		<th >Название</th>
 		<th >Жанр</th>
-		<th >Стоимость</th>
-		<th >Описание</th>
-		<th >Издание</th>
 		</thead>
 		<tbody>
 		@foreach (var b in CurrentAuthor.Books)
 		{
-			<tr >
+			<tr @onclick="()=>toItem(b)">
 				<td>@b.Title</td>
 				<td>@b.Genre</td>
-				<td>@b.Cost</td>
-				<td>@b.Description</td>
-				<td>@b.Publisher.Name</td>
 			</tr>
 		}
 		</tbody>
 	</table>
+	
+	<div class="row">
+		<div class="col-md-6 "> </div>
+
+		<div class="col-md-2">
+			<div class="edit_author" @onclick="() => editAuthor(Int32.Parse(AuthorId))" >Изменить автора</div>
+		</div>
+		<div class="col-md-1 "> </div>
+		<div class="col-md-2">
+			<div class="del_author" @onclick="() => deleteAuthor(Int32.Parse(AuthorId))" >Удалить автора</div>
+		</div>
+		<div class="col-md-1 "> </div>
+	</div>
+
 }
 @code {
 	[Parameter]
 	public string AuthorId { get; set; }
+
 	public List<Data.Models.Author> Authors { get; set; }
 	public Data.Models.Author? CurrentAuthor { get; set; }
 	[Inject]
@@ -61,4 +76,21 @@
 		Console.WriteLine(CurrentAuthor);
 		base.OnInitialized();
 	}
+	
+	public void toItem(Book book)
+	{
+		_navigationManager.NavigateTo($"/Book/{book.Id}");
+	}
+	private async void editAuthor(int id)
+    {
+        var post = await authorsProvider.GetOne(id);
+        _navigationManager.NavigateTo($"/Author/{id}/edit");
+    }
+
+	private async void deleteAuthor(int id)
+    {
+        await authorsProvider.Remove(id);
+        _navigationManager.NavigateTo("/Authors");
+    }
+
 }

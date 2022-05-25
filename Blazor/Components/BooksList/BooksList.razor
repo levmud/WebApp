@@ -1,0 +1,73 @@
+﻿@using Blazor.Data.Models
+@using Blazor.Data.Services
+@inject NavigationManager _navigationManager
+
+
+<div class="container-fluid">
+    <div class="break-min"></div>
+    <h1> Каталог</h1>
+    <div class="break-min"></div>
+</div>
+
+<div class="container-fluid">
+	<div class="row">
+
+
+
+				@if (books != null)
+				{
+					@foreach (var book in books)
+					{	
+						<div class="col-md-3 page">
+							<div class="book-item" @onclick="()=>toItem(book)">
+								<img src="https://kartinkin.net/uploads/posts/2022-02/1645478584_3-kartinkin-net-p-kartinki-s-knigami-3.png">
+								<p class="book-title">@book.Title | @book.Author.Fullname</p>
+								<p class="book-price">₽ @book.Cost</p>
+							</div>
+						</div>
+					}
+				}
+
+
+	</div>
+</div>
+
+@*<table class="table">
+	<thead>
+	<tr>
+		<th>ID</th>
+		<th>Название</th>
+		<th>Автор</th>
+		<th>Стоимость</th>
+	</tr>
+	</thead>
+	<tbody>
+	 @if (books != null)
+	 {
+		 @foreach (var book in books)
+		 {
+			 <tr @onclick="()=>toItem(book)">
+				 <td>@book.Id</td>
+				 <td>@book.Title</td>
+				 <td>@book.Author.Fullname</td>
+				 <td>@book.Cost</td>
+			 </tr>
+		}
+	}
+	</tbody>
+</table>*@
+
+@code{
+
+	private List<Book>? books;
+	[Inject]
+	private IBookProvider booksProvider { get; set; }
+	protected override async Task OnInitializedAsync()
+	{
+		books = await booksProvider.GetAll();
+	}
+	public void toItem(Book book)
+	{
+		_navigationManager.NavigateTo($"/Book/{book.Id}");
+	}
+}

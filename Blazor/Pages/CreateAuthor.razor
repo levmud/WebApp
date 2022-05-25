@@ -1,0 +1,52 @@
+﻿@page "/Author/create"
+@using Blazor.Data.Models
+@using Blazor.Data.Services
+@using Blazor.Data.DTOs
+@inject NavigationManager _navigationManager
+
+<div class="container-fluid">
+    <div class="break-min"></div>
+    <h3> Создание автора </h3>
+    <div class="break-min"></div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-4 "> </div>
+    <div class="box col-md-4 ">
+
+        <label class="input-label" for="label">ФИО</label>
+        <div class="input-wrapper">
+            <input class="input-title" id="label"  @bind="fullname">
+        </div>
+        <label class="input-label" for="label">Страна</label>
+        <div class="input-wrapper">
+            <input class="input-title" id="label"  @bind="country">
+        </div>
+        <label class="input-label" for="label">Направление</label>
+        <div class="input-wrapper">
+            <input class="input-title" id="label"  @bind="direction">
+        </div>
+        <div class="add_author" @onclick="createAuthor">Создать</div>
+    </div>
+    <div class="col-md-4 "> </div>
+</div>
+@code {
+    [Inject]
+    IAuthorProvider authorProvider { get; set; }
+
+    
+    private string fullname;
+    private string country;
+    private string direction;
+
+    private async void createAuthor()
+    {
+        AuthorDTO newAuthor = new AuthorDTO();
+        newAuthor.Fullname = fullname;
+        newAuthor.Country = country;
+        newAuthor.Direction = direction;
+
+        await authorProvider.Add(newAuthor);
+        _navigationManager.NavigateTo("/Authors");
+    }
+}

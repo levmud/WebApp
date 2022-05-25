@@ -33,7 +33,7 @@ namespace WebApp.Data.Controllers
             return author;
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult<Author>> PutAuthor(int id, [FromBody] Author author)
+        public async Task<ActionResult<Author>> PutAuthor(int id, [FromBody] AuthorDTO author)
         {
             var result = await _context.UpdateAuthor(id, author);
             if (result == null)

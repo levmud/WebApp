@@ -1,0 +1,69 @@
+﻿@page "/Author/{AuthorId}/edit"
+@using Blazor.Data.Models
+@using Blazor.Data.Services
+@using Blazor.Data.DTOs
+@inject NavigationManager _navigationManager
+
+<div class="container-fluid">
+    <div class="break-min"></div>
+    <h3> Изменение автора </h3>
+    <div class="break-min"></div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-4 "> </div>
+    <div class="box col-md-4 ">
+
+        <label class="input-label" for="label">ФИО</label>
+        <div class="input-wrapper">
+            <input class="input-title" id="label"  @bind="fullname">
+        </div>
+        <label class="input-label" for="label">Страна</label>
+        <div class="input-wrapper">
+            <input class="input-title" id="label"  @bind="country">
+        </div>
+        <label class="input-label" for="label">Направление</label>
+        <div class="input-wrapper">
+            <input class="input-title" id="label"  @bind="direction">
+        </div>
+        <div class="add_author" @onclick="editAuthor">Обновить</div>
+    </div>
+    <div class="col-md-4 "> </div>
+</div>
+@code {
+    [Inject]
+    IAuthorProvider authorProvider { get; set; }
+
+
+    private string fullname;
+    private string country;
+    private string direction;
+
+    [Parameter]
+    public string AuthorId { get; set; }
+
+    private Author? author;
+
+    protected override async Task OnInitializedAsync()
+    {
+        author = await authorProvider.GetOne(Int32.Parse(AuthorId));
+        fullname = author.Fullname;
+        country = author.Country;
+        direction = author.Direction;
+
+    }
+
+
+    private async void editAuthor()
+    {
+
+        AuthorDTO newAuthor = new AuthorDTO();
+        newAuthor.Fullname = fullname;
+        newAuthor.Country = country;
+        newAuthor.Direction = direction;
+
+        await authorProvider.Edit(Int32.Parse(AuthorId), newAuthor);
+        _navigationManager.NavigateTo($"/Author/{AuthorId}");
+    }
+}
+

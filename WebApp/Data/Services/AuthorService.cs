@@ -56,7 +56,7 @@ namespace WebApp.Data.Services
             return await Task.FromResult(result);
         }
 
-        public async Task<Author?> UpdateAuthor(int id, Author updatedAuthor)
+        public async Task<Author?> UpdateAuthor(int id, AuthorDTO updatedAuthor)
         {
             var author = await
            _context.Authors.Include(author => author.Books).FirstOrDefaultAsync(au => au.Id == id);
@@ -65,10 +65,7 @@ namespace WebApp.Data.Services
                 author.Fullname = updatedAuthor.Fullname;
                 author.Country = updatedAuthor.Country;
                 author.Direction = updatedAuthor.Direction;
-                if (updatedAuthor.Books.Any())
-                {
-                    author.Books = _context.Books.ToList().IntersectBy(updatedAuthor.Books, book => book).ToList();
-                }
+
 
                 _context.Authors.Update(author);
                 _context.Entry(author).State = EntityState.Modified;

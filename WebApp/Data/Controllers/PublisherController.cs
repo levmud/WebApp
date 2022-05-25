@@ -32,7 +32,7 @@ namespace WebApp.Data.Controllers
             return publisher;
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult<Publisher>> PutPublisher(int id, [FromBody] Publisher publisher)
+        public async Task<ActionResult<Publisher>> PutPublisher(int id, [FromBody] PublisherDTO publisher)
         {
             var result = await _context.UpdatePublisher(id, publisher);
             if (result == null)

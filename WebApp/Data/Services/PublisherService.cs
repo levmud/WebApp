@@ -19,11 +19,7 @@ namespace WebApp.Data.Services
                 Phone = publisher.Phone,
                 Mail = publisher.Mail,
             };
-            //if (publisher.Books.Any())
-            //{
-            //    npublisher.Books = _context.Books.ToList().IntersectBy(publisher.Books, book =>
-            //   book.Id).ToList();
-            //}
+
             var result = _context.Publishers.Add(npublisher);
             await _context.SaveChangesAsync();
             return await Task.FromResult(result.Entity);
@@ -56,7 +52,7 @@ namespace WebApp.Data.Services
             return await Task.FromResult(result);
         }
 
-        public async Task<Publisher?> UpdatePublisher(int id, Publisher updatedPublisher)
+        public async Task<Publisher?> UpdatePublisher(int id, PublisherDTO updatedPublisher)
         {
             var publisher = await
            _context.Publishers.Include(publisher => publisher.Books).FirstOrDefaultAsync(p => p.Id == id);
@@ -65,10 +61,6 @@ namespace WebApp.Data.Services
                 publisher.Name = updatedPublisher.Name;
                 publisher.Phone = updatedPublisher.Phone;
                 publisher.Mail = updatedPublisher.Mail;
-                if (updatedPublisher.Books.Any())
-                {
-                    publisher.Books = _context.Books.ToList().IntersectBy(updatedPublisher.Books, book => book).ToList();
-                }
 
                 _context.Publishers.Update(publisher);
                 _context.Entry(publisher).State = EntityState.Modified;
